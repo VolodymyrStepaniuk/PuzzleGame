@@ -1,12 +1,14 @@
 package org.stepaniuk.game;
 
+import lombok.extern.log4j.Log4j2;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+@Log4j2
 public class Sprite {
     // Метод, що розрізає зображення та повертає масив BufferedImage з уже розрізаним зображенням
     private static BufferedImage[] cutImageIntoPieces(File photo, int N, int widthOfGrid, int heightOfGrid) throws IOException {
@@ -39,6 +41,7 @@ public class Sprite {
                 current_img++;
             }
         }
+        log.info("Картинка була розрізана на "+imgs.length+" частин");
         return imgs;
     }
 
@@ -48,6 +51,7 @@ public class Sprite {
         Graphics2D g2d = resizedImage.createGraphics();
         g2d.drawImage(originalImage, 0, 0, width, height, null);
         g2d.dispose();
+        log.info("Розмір картинки був змінений на ("+width+","+height+")");
         return resizedImage;
     }
 
@@ -57,6 +61,7 @@ public class Sprite {
         try {
             images = cutImageIntoPieces(new File("src/main/resources/1.png"), sizeOfGame, 500, 500);
         } catch (IOException e) {
+            log.error(e);
             throw new RuntimeException(e);
         }
         ImageIcon[] icons = new ImageIcon[images.length];
@@ -69,7 +74,7 @@ public class Sprite {
 
         // Встановлюємо останню ImageIcon як null, щоб представити порожній простір
         icons[icons.length - 1] = null;
-
+        log.info("Картинка була перетворена на масив ImageIcon");
         return icons;
     }
 }

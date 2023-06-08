@@ -1,11 +1,14 @@
 package org.stepaniuk.game;
 
+import lombok.extern.log4j.Log4j2;
+
 import javax.swing.*;
 import java.awt.*;
-
+@Log4j2
 public class CongratulationsDialog {
     // Метод для відображення діалогового вікна з вітаннями
     public static void showCongratulationsDialog(JPanel panel) {
+        log.info("Користувач вирішив головоломку та отримав привітальне вікно");
         JDialog dialog = new JDialog();
         dialog.setTitle("Вітаємо!");
         dialog.setModal(true);
@@ -26,6 +29,7 @@ public class CongratulationsDialog {
             dialog.dispose();  // Закрити діалогове вікно
             JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel);
             frame.dispose();  // Закрити JFrame
+            log.info("Користувач вирішив завершити гру");
         });
 
         JPanel buttonPanel = new JPanel();
