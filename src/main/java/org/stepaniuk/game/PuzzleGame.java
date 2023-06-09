@@ -143,8 +143,8 @@ public class PuzzleGame {
         if (solved) {
             log.info("Було знайдено вирішення головоломки");
             CongratulationsDialog.showCongratulationsDialog(panel);  // Відображення діалогового вікна з привітаннями
-            //TODO: Знайти вирішення для проблеми перемішування,коли користувач вирішив завершити сеанс
-            shuffleBoard();  // Перемішування гральної дошки
+            if(!CongratulationsDialog.isNeedToClose())
+                shuffleBoard();  // Перемішування гральної дошки
         }
     }
 //    Метод createGameBoard створює панель для гральної дошки.

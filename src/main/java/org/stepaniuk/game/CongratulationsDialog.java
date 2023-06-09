@@ -7,6 +7,7 @@ import java.awt.*;
 @Log4j2
 public class CongratulationsDialog {
     // Метод для відображення діалогового вікна з вітаннями
+    private static boolean needToClose = false;
     public static void showCongratulationsDialog(JPanel panel) {
         log.info("Користувач вирішив головоломку та отримав привітальне вікно");
         JDialog dialog = new JDialog();
@@ -22,13 +23,16 @@ public class CongratulationsDialog {
         contentPanel.add(messageLabel, BorderLayout.CENTER);
 
         JButton yesButton = new JButton("Так");
-        yesButton.addActionListener(e -> dialog.dispose());
+        yesButton.addActionListener(e -> {
+            dialog.dispose();
+        });
 
         JButton noButton = new JButton("Ні");
         noButton.addActionListener(e -> {
             dialog.dispose();  // Закрити діалогове вікно
             JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel);
             frame.dispose();  // Закрити JFrame
+            needToClose=true;
             log.info("Користувач вирішив завершити гру");
         });
 
@@ -39,5 +43,9 @@ public class CongratulationsDialog {
 
         dialog.setContentPane(contentPanel);
         dialog.setVisible(true);
+    }
+
+    public static boolean isNeedToClose() {
+        return needToClose;
     }
 }
